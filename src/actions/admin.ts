@@ -19,7 +19,7 @@ export async function updateUserPlan(uid: string, newPlan: 'trial' | 'pro') {
 
         await db.runTransaction(async (transaction: Transaction) => {
             const userDoc = await transaction.get(userRef);
-            if (!userDoc.exists) {
+            if (!userDoc.exists()) {
                 throw new Error("Usuário não encontrado.");
             }
             
