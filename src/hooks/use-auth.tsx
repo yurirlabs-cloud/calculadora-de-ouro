@@ -125,7 +125,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const loading = authLoading || dbLoading;
 
   return (
-    <AuthContext.Provider value={{ user, userData, subscriptionData, loading }}>
+    <AuthContext.Provider value={{ user: user ?? null, userData, subscriptionData, loading }}>
         {children}
     </AuthContext.Provider>
   );
