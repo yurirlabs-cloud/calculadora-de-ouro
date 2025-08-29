@@ -17,15 +17,15 @@ export const dynamic = 'force-dynamic';
 async function getUsersData(): Promise<FullUserData[]> {
     try {
         const usersSnapshot = await db.collection('users').get();
-        const users = usersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as FullUserData));
+        const users = usersSnapshot.docs.map((doc: any) => ({ id: doc.id, ...doc.data() } as FullUserData));
 
         const subscriptionsSnapshot = await db.collection('subscriptions').get();
-        const subscriptions = subscriptionsSnapshot.docs.reduce((acc, doc) => {
+        const subscriptions = subscriptionsSnapshot.docs.reduce((acc: any, doc: any) => {
             acc[doc.id] = doc.data() as SubscriptionData;
             return acc;
         }, {} as { [key: string]: SubscriptionData });
 
-        return users.map(user => ({
+        return users.map((user: FullUserData) => ({
             ...user,
             subscription: subscriptions[user.id]
         }));
@@ -59,7 +59,6 @@ function getSubscriptionStatus(user: FullUserData) {
     }
     return <Badge variant="secondary">{user.subscription.status}</Badge>;
 }
-
 
 export default async function AdminDashboard() {
     const users = await getUsersData();
@@ -116,7 +115,7 @@ export default async function AdminDashboard() {
                                     </TableCell>
                                 </TableRow>
                             ) : (
-                                users.map(user => (
+                                users.map((user: FullUserData) => (
                                     <TableRow key={user.id}>
                                         <TableCell className="font-medium">{user.email}</TableCell>
                                         <TableCell>{getPlanStatus(user)}</TableCell>
