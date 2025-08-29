@@ -2,7 +2,6 @@
 
 import { db, Timestamp } from '@/lib/firebase-admin';
 import { revalidatePath } from 'next/cache';
-import type { firestore } from 'firebase-admin';
 
 /**
  * Atualiza o plano de um usuário para 'trial' ou 'pro'.
@@ -17,7 +16,7 @@ export async function updateUserPlan(uid: string, newPlan: 'trial' | 'pro') {
         const userRef = db.collection('users').doc(uid);
         const subscriptionRef = db.collection('subscriptions').doc(uid);
 
-        await db.runTransaction(async (transaction: firestore.Transaction) => {
+        await db.runTransaction(async (transaction: FirebaseFirestore.Transaction) => {
             const userDoc = await transaction.get(userRef);
             if (!userDoc.exists) {
                 throw new Error("Usuário não encontrado.");
