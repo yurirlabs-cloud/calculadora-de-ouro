@@ -2,7 +2,7 @@
 
 import { db, Timestamp } from '@/lib/firebase-admin';
 import { revalidatePath } from 'next/cache';
-import { firestore } from 'firebase-admin';
+import type { firestore } from 'firebase-admin';
 
 /**
  * Atualiza o plano de um usuário para 'trial' ou 'pro'.
